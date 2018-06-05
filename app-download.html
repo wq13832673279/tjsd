@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>天际速贷</title>
+<meta http-equiv="keywords" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black"> 
+<link href="/assets/css/mui.min.css" rel="stylesheet"/>
+<style>
+html,body{height:100%;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif}
+body{background:url("/assets/images/download_bg.png");background-size: cover ;}
+.main .logo{height: 100%;position: relative;}
+.wrapper{position: relative;}
+.wrapper h3{display: inline-block;}
+.main .logo>img{width:45%;position: absolute;bottom: 0;left: 27%;}
+.icon-android,.icon-ios{height: 32px;width: 32px;display: inline-block;position: absolute;right: 61%;top: 0;}
+.down{padding: 12px 46px;min-width: 200px;border-radius: 40px;margin-top: 20px;}
+.main{height:45%;width: 100%;transition:height 1s;}
+.down-icon{margin-top:80px;}
+.down-icon-href{margin-bottom: 15px;}
+.down-icon-href a{display: inline-block;width: 200px;height: 40px;}
+.down-icon img{width: 200px;}
+.hint{height: 0;background:url("/assets/images/450.png");background-size:cover;width: 100%;transition:height 1s;}
+</style>
+</head>
+<body class="body">
+	<div class="hint mui-text-center"></div>
+	<div class="main">
+		<div class="logo" style="height: 100%">
+			<img src="/assets/images/download_logo.png">
+		</div>
+	</div>
+	<div class="down-icon mui-text-center">
+		<div class="down-icon-href">
+            			<a href="" id="ios">
+							<img src="/assets/images/ios.png">
+						</a>
+		</div>
+		<div class="down-icon-href">
+            			<a href="" id="android">
+							<img src="/assets/images/android.png">
+						</a>
+		</div>
+	</div>
+    </div>
+</body>
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/app.js"></script>
+<script src="/assets/js/mui.min.js"></script>
+	<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+	</script>
+<script type="text/javascript" charset="utf-8">
+	mui.init();
+</script>
+<script type="text/javascript">
+
+mui('body').on('tap', '.down-icon a', function () {
+	var ua = navigator.userAgent.toLowerCase();
+	//console.log(ua);
+    if(ua.match(/MicroMessenger/i)=="micromessenger") {  
+    	$(".hint").css("height","150px");
+    }else{
+		var id=$(this).attr('id');
+		console.log(id);
+		app.post(API.VERSION,{},function(resp){
+				if(resp.code==0){
+					if(id=="ios"){
+						location.href=resp.data.ios.url;
+					}else{
+						location.href=resp.data.android.url;
+					}
+				}
+		})
+	}
+	
+})
+
+</script>
+</html>
